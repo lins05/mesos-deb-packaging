@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 set -o errexit -o nounset -o pipefail
 export LC_ALL=C
 function -h {
@@ -113,7 +114,7 @@ function go {
   create_installation
   create_lib_symlinks
   pkg
-  if [[ ! $(configure_opts) =~ "--disable-python\>" ]]
+  if [[ ! $(configure_opts) =~ "--disable-python" ]]
   then
     save_python_egg
   fi
@@ -254,7 +255,7 @@ function create_installation {(
   fi
   extra_libs
   init_scripts "$linux"
-  if [[ ! $(configure_opts) =~ "--disable-java\>" ]]
+  if [[ ! $(configure_opts) =~ "--disable-java" ]]
   then
     jars
   fi
@@ -352,7 +353,7 @@ function deb_ {
                --deb-recommends zookeeper
                --deb-recommends zookeeperd
                --deb-recommends zookeeper-bin
-               -d 'java-runtime-headless | java2-runtime-headless | default-jre'
+               -d 'java-runtime-headless | java2-runtime-headless | default-jre | zulu-8'
                -d $libcurl_package
                -d libevent-dev
                -d libsvn1
